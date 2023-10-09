@@ -239,7 +239,7 @@ public class cipher {
                 }
 
                 System.out.println(answer);
-                Scanner.close();
+                
         }
 
 /*String encrypt = function (text, salt) {
