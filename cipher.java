@@ -11,7 +11,7 @@ import java.util.Base64;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class mixedcipher {
+public class cipher {
 
 
         static char ch;
@@ -239,6 +239,7 @@ public class mixedcipher {
                 }
 
                 System.out.println(answer);
+                Scanner.close();
         }
 
 /*String encrypt = function (text, salt) {
