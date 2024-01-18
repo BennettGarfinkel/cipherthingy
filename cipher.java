@@ -17,6 +17,36 @@ public class cipher {
     static char ch;
     static int valueAt = 0;
     static String finalMessage = "";
+static boolean ef;
+static boolean fe;
+static String securesalt = "";
+static String securekey = "";
+    public static String randomString(int n) 
+{ 
+
+
+String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		+ "0123456789"
+		+ "abcdefghijklmnopqrstuvxyz"
+		+"!@#$%^&*()-_=+[{]}|`~,<.>/?;:'"; 
+
+// create StringBuffer size of AlphaNumericString 
+StringBuilder sb = new StringBuilder(n); 
+
+for (int i = 0; i < n; i++) { 
+
+
+int index 
+	= (int)(AlphaNumericString.length() 
+	* Math.random()); 
+
+// add Character one by one in end of sb 
+sb.append(AlphaNumericString 
+	.charAt(index)); 
+} 
+
+return sb.toString(); 
+} 
 
     public static String encrypt256(String strToEncrypt, String key, String salt) {
         try {
@@ -208,19 +238,36 @@ public class cipher {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
+String slt="";
+String key="";
+String answer="";
         System.out.println("Please enter message");
         String mssg = scanner.nextLine();
+        System.out.println("Would you like a secure key and salt?(only for encrypting)");
+        String keysaltsecure = scanner.nextLine();
         System.out.println("please select mode rb/b/f/rf");
         String mode = scanner.nextLine();
         System.out.println("Encode or Decode?");
         String eord = scanner.nextLine();
+        ef = ((String.valueOf(eord.charAt(0)))).equals("e");
+        fe = ((String.valueOf(keysaltsecure.charAt(0)))).equals("y");
+    
+        if(ef && fe)
+        {
+            System.out.println("Please enter salt length");
+            int slength = Integer.parseInt(scanner.nextLine());
+            System.out.println("Please enter key length");
+             int klength = Integer.parseInt(scanner.nextLine());
+              slt = randomString(slength);
+              key = randomString(klength);
+              
+        }else{
         System.out.println("Please enter salt");
-        String slt = scanner.nextLine();
+         slt = scanner.nextLine();
         System.out.println("Please enter key");
-        String key = scanner.nextLine();
-        String answer = "";
-
+        key = scanner.nextLine();
+        answer = "";
+        }
         if (mode.equals("rb")) {
             answer = rBackwards(mssg, slt, eord, key);
         }
@@ -234,8 +281,12 @@ public class cipher {
             answer = rForwards(mssg, slt, eord, key);
         }
 
-        System.out.println(answer);
-
+        System.out.println("Message: " + answer);
+        if(ef && fe)
+        {
+            System.out.println("Secure salt: " + slt);
+            System.out.println("Secure key: " + key);
+        }
     }
 
 }
