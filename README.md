@@ -1,3 +1,4 @@
 All issues fixxed :)
 please leave suggestions
-possible TODOs: add secure salt and key generator
+added secure salt and key generator
+possible TODOs: idk
