@@ -1,4 +1,7 @@
 All issues fixed :)
-/nplease leave suggestions
+
+please leave suggestions
+
 added secure salt and key generator
-possible TODOs: idk
+
+possible TODOs: optimize code(nah)
