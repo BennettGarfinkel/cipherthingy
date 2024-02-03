@@ -10,7 +10,7 @@ import java.util.Base64;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class cipher {
+public class LengthwiseCipher {
     static char ch;
     static int valueAt = 0;
     static String finalMessage = "";
@@ -131,14 +131,9 @@ public class cipher {
         System.out.println("Please enter key");
         key = scanner.nextLine();
         answer = "";
-        if ((String.valueOf(eord.charAt(0))).equals("e"))
-        {
-            answer = encryptText(mssg, slt, key);
-        }
-        if ((String.valueOf(eord.charAt(0))).equals("d"))
-        {
-            answer = decryptText(mssg, slt, key);
-        }
+      answer = (String.valueOf(eord.charAt(0))).equals("e") ? 
+        encryptText(mssg, slt, key) :
+        decryptText(mssg, slt, key);
         System.out.println(answer);
         scanner.close();
     }
