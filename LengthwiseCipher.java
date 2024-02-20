@@ -6,15 +6,40 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.spec.KeySpec;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Objects;
 import java.util.Scanner;
+//import java.util.HashSet;
 
 public class LengthwiseCipher {
     static char ch;
     static int valueAt = 0;
     static String finalMessage = "";
     static String encryptedKey = "";
+    static boolean isPrime;
+    static int primeCount;
+    static /*HashSet*/ArrayList<Integer> primes = new /*HashSet*/ArrayList<Integer>();
+   
+
+    public static boolean checkPrime (int num)
+    {
+        isPrime = false;
+        if (num <= 1)
+        {
+            return isPrime;
+        }
+        for (int i = 2; i <= num / 2; ++i) {
+            if (num % i == 0) {
+              return isPrime;
+              
+            }
+          }
+          primeCount++;
+              primes.add(num);
+              isPrime = true;
+    return isPrime;
+    }
 
     public static String encrypt256(String strToEncrypt, String key, String salt) {
         try {
@@ -57,6 +82,12 @@ public class LengthwiseCipher {
 
     static String encryptText(String message, String salt, String key) {
         encryptedKey = encryptKey(key);
+        for (char c : encryptedKey.toCharArray())
+        {
+            String hex = String.format("%04x", (int)c);
+            int decimal = Integer.parseInt(hex, 16);
+            checkPrime(decimal);
+        }
         finalMessage = "";
         //apply key
         assert message != null;
@@ -75,11 +106,20 @@ public class LengthwiseCipher {
         valueAt = 0;
         finalMessage = encrypt256(finalMessage, key, salt);
 
+
+
         return finalMessage;
+        
     }
     static String decryptText(String message, String salt,String key) {
         message = decrypt256(message, key, salt);
         encryptedKey = encryptKey(key);
+        for (char c : encryptedKey.toCharArray())
+        {
+            String hex = String.format("%04x", (int)c);
+            int decimal = Integer.parseInt(hex, 16);
+            checkPrime(decimal);
+        }
         finalMessage = "";
         //unapply key
         assert message != null;
@@ -121,20 +161,19 @@ public class LengthwiseCipher {
         Scanner scanner = new Scanner(System.in);
         String slt = "";
         String key = "";
-        String answer;
+        String answer = "";
         System.out.println("Please enter message");
         String mssg = scanner.nextLine();
         System.out.println("Encode or Decode?");
-        String eord = scanner.nextLine();
+        String eord = scanner.nextLine();       
         System.out.println("Please enter salt");
         slt = scanner.nextLine();
         System.out.println("Please enter key");
-        key = scanner.nextLine();
-        answer = "";
+        key = scanner.nextLine();       
       answer = (String.valueOf(eord.charAt(0))).equals("e") ? 
         encryptText(mssg, slt, key) :
         decryptText(mssg, slt, key);
-        System.out.println(answer);
+        System.out.println("Message: " + answer);
         scanner.close();
     }
 
