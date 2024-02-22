@@ -19,24 +19,23 @@ public class LengthwiseCipher {
     static String encryptedKey = "";
     static boolean isPrime;
     static int primeCount;
-    static /*HashSet*/ArrayList<Integer> primes = new /*HashSet*/ArrayList<Integer>();
-   
+    static int compositeCount;
 
     public static boolean checkPrime (int num)
     {
         isPrime = false;
         if (num <= 1)
         {
+            compositeCount++;
             return isPrime;
         }
         for (int i = 2; i <= num / 2; ++i) {
             if (num % i == 0) {
-              return isPrime;
-              
+                compositeCount++;
+                return isPrime;
             }
           }
           primeCount++;
-              primes.add(num);
               isPrime = true;
     return isPrime;
     }
@@ -93,11 +92,11 @@ public class LengthwiseCipher {
         assert message != null;
         for (int i = message.length(); i >= 1; --i) {            
                 ch = message.charAt(valueAt);
-                if (i % 2 == 1) {
-                    ch =(char) (ch + i);
+                if (i*compositeCount % 2 == 1) {
+                    ch =(char) (ch + i*primeCount);
                 }else {
 
-                   ch =(char) (ch - i);
+                   ch =(char) (ch - i*primeCount);
                 }
                 valueAt += 1;
                 finalMessage += ch;
@@ -125,10 +124,10 @@ public class LengthwiseCipher {
         assert message != null;
         for (int i = message.length(); i >= 1; --i) {
                 ch = message.charAt(valueAt);
-                if (i % 2 == 1) {
-                    ch =(char) (ch - i);
+                if (i*compositeCount % 2 == 1) {
+                    ch =(char) (ch - i*primeCount);
                 } else {
-                   ch =(char) (ch + i);
+                   ch =(char) (ch + i*primeCount);
                 }
                 valueAt += 1;
                 finalMessage += ch;
