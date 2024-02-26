@@ -6,7 +6,6 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.spec.KeySpec;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Objects;
 import java.util.Scanner;
@@ -18,8 +17,8 @@ public class LengthwiseCipher {
     static String finalMessage = "";
     static String encryptedKey = "";
     static boolean isPrime;
-    static int primeCount;
-    static int compositeCount;
+    static int primeCount = 1;
+    static int compositeCount = 1;
 
     public static boolean checkPrime (int num)
     {
@@ -87,6 +86,7 @@ public class LengthwiseCipher {
             int decimal = Integer.parseInt(hex, 16);
             checkPrime(decimal);
         }
+        if (primeCount == 0) primeCount = 1;
         finalMessage = "";
         //apply key
         assert message != null;
@@ -119,6 +119,7 @@ public class LengthwiseCipher {
             int decimal = Integer.parseInt(hex, 16);
             checkPrime(decimal);
         }
+        if (primeCount == 0) primeCount = 1;
         finalMessage = "";
         //unapply key
         assert message != null;
