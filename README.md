@@ -1,4 +1,4 @@
-[https://github.com/BennettGarfinkel/LengthWiseCipher/tree/main](new project)
+[new project](https://github.com/BennettGarfinkel/LengthWiseCipher/tree/main)
 
 All issues fixed and code finished(for now)
 
